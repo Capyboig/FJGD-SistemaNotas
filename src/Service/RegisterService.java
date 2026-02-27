@@ -13,4 +13,9 @@ public class RegisterService {
 
         UserRepository.almacenarUsuario(this.usuario, password);
     }
+
+
+    public String sanitizarEmail(String email) {
+        return email.replace("@", "").replace(".", "");
+    }
 }

@@ -25,7 +25,7 @@ public class LoggedInterface {
 
 
                     System.out.println("Introduce el texto a anotar");
-
+                    String nota = sc.nextLine();
                     break;
 
 
