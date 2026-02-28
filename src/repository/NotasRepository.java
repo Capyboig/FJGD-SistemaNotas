@@ -6,16 +6,12 @@ import java.nio.file.*;
 
 
 public class NotasRepository {
+    private static final String RUTA_BASE = "src/data/usuarios/";
 
 
-    private static final String RUTA_BASE = "data/usuarios";
-
-
-    public static void guardarNota(String emailsanitizado, String titulo, String contenido) {
-        Path carpetaUsuario = Paths.get(RUTA_BASE + emailsanitizado);
+    public void guardarNota(String emailsanitizado, String titulo, String contenido) {
+        Path carpetaUsuario = Paths.get(RUTA_BASE, emailsanitizado);
         Path archivoNotas = carpetaUsuario.resolve("notas.txt");
-
-
 
         try {
             if (Files.notExists(carpetaUsuario)) {
@@ -24,12 +20,12 @@ public class NotasRepository {
 
             String lineaNota = titulo + ";" + contenido + System.lineSeparator();
 
-
             Files.writeString(archivoNotas, lineaNota,
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND);
 
             System.out.println("[EXITO] Nota guardada correctamente");
+            System.out.println("Guardado con el email " + emailsanitizado);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

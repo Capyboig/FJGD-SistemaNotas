@@ -1,20 +1,23 @@
 package View;
 
 import Service.LoginService;
+import Service.RegisterService;
 import controller.UsuarioController;
 
 import java.util.Scanner;
 
 public class View {
+    private Scanner sc = new Scanner(System.in);
+
     public View() {
 
     }
 
-
-
+    LoggedInterface loggedInterface = new LoggedInterface();
+    RegisterService registerService = new RegisterService();
 
     public void mostrarMenu() {
-        try (Scanner sc = new Scanner(System.in)) {
+
             System.out.println("======== MENU ========");
             System.out.println("1.- Registrar Usuario");
             System.out.println("2.- Login Usuario");
@@ -51,13 +54,16 @@ public class View {
                     System.out.println("Introduce tu contraseña:");
                     String passLogin = sc.nextLine();
 
-                    // Creamos un controlador temporal para el login
+
                     LoginService loginService = new LoginService();
 
 
                     if (loginService.hacerLogin(emailLogin, passLogin)) {
                         System.out.println("[EXITO] ¡Bienvenido! Has iniciado sesión correctamente.");
+                        loggedInterface.emailSanitizado = registerService.sanitizarEmail(emailLogin);
+                        loggedInterface.setSc(sc);
 
+                        loggedInterface.mostrarMenuLogin();
 
                     } else {
                         System.out.println("[ERROR] Email o contraseña incorrectos, o el usuario no existe.");
@@ -85,4 +91,4 @@ public class View {
 
         }
     }
-}
+

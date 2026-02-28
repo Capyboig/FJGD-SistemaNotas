@@ -1,11 +1,20 @@
 package View;
 
+import repository.NotasRepository;
+
 import java.util.Scanner;
 
 public class LoggedInterface {
+    String emailSanitizado;
+    NotasRepository notasRepository = new NotasRepository();
+    private Scanner sc;
+    public LoggedInterface() {
+
+    }
+
 
     public void mostrarMenuLogin() {
-        try (Scanner sc = new Scanner(System.in)) {
+
             System.out.println(" ===== MENU PROFESOR =====");
 
             System.out.println("1.- Crear nota");
@@ -20,12 +29,15 @@ public class LoggedInterface {
 
             switch (opcionLogged) {
                 case 1:
-                    System.out.println("Con que nombre quieres guardar esta nota");
-                    String notaNombre = sc.nextLine();
+                    System.out.println("Introduce el titulo de la nota");
+                    String notaTitulo = sc.nextLine();
 
 
-                    System.out.println("Introduce el texto a anotar");
-                    String nota = sc.nextLine();
+                    System.out.println("Introduce el contenido para anotar");
+                    String contenido = sc.nextLine();
+                    System.out.println("Guardando 1....");
+                    notasRepository.guardarNota(emailSanitizado, notaTitulo, contenido);
+                    System.out.println("Guardando 2....");
                     break;
 
 
@@ -63,9 +75,14 @@ public class LoggedInterface {
 
                     break;
             }
-        }
 
 
 
+
+    }
+
+
+    public void setSc(Scanner sc) {
+        this.sc = sc;
     }
 }
